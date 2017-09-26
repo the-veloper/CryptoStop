@@ -39,6 +39,7 @@ let config = {
  * Variables
  */
 let blackURLs = [];
+let blackNames = [];
 
 /**
  * Functions
@@ -47,6 +48,7 @@ let blackURLs = [];
 const update = (text) => {
   lists = text.split(';');
   blackURLs = lists[0].split('\n');
+  blackNames = lists[1].split('\n');
 };
 
 const fallBackUpdate = () => {
@@ -60,7 +62,7 @@ const saveConfig = () => {
   localStorage.setItem('config', JSON.stringify(config));
 };
 
-const wildCompareNew = (string, search) => {
+const compareWildCard = (string, search) => {
   var startIndex = 0,
       array = search.split('*');
   for (var i = 0; i < array.length; i++) {
@@ -71,13 +73,16 @@ const wildCompareNew = (string, search) => {
   return true;
 }
 
-const isBlackListedPattern = (text) => {
+const isBlackListedFilename = (text) => {
+  for (var i = 0; i < blackNames.length; i++) {
+    if (compareWildCard(url, blackNames[i])) return true;
+  }
   return false;
 }
 
 const isBlackListedURL = (url) => {
   for (var i = 0; i < blackURLs.length; i++) {
-    if (wildCompareNew(url, blackURLs[i])) return true;
+    if (compareWildCard(url, blackURLs[i])) return true;
   }
   return false;
 }
@@ -85,14 +90,19 @@ const isBlackListedURL = (url) => {
 chrome.webRequest.onBeforeRequest.addListener(
     function(details) {
       if (config.toggle) {
-        for (burl in blackURLs) {
-          if (isBlackListedURL(details.url, blackURLs[burl])) return {
+        for (bURL in blackURLs) {
+          if (isBlackListedURL(details.url, blackURLs[bURL])) return {
+            cancel: true
+          };
+        }
+        for (bName in blackURLs) {
+          if (isBlackListedFilename(details.url, blackNames[bName])) return {
             cancel: true
           };
         }
       }
     }, {
-      urls: ["<all_urls>"]
+      urls: blackURLs
     }, ["blocking"]);
 
 // Communication with the popup and content scripts
