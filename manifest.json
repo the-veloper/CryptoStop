@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "background": {
+    "scripts": ["js/background.js"],
+    "persistent": true
+  },
+  "name": "CryptoStop",
+  "description": "This extension blocks crypto-currency mining scripts.",
+  "version": "1.0",
+  "icons": {
+    "128": "images/icon.png"
+  },
+  "browser_action": {
+    "default_icon": "images/icon.png",
+    "default_popup": "popup.html",
+	"default_title": "CryptoStop - stop crypto-currency mining on websites"
+  },
+  "permissions": [
+        "activeTab",
+        "tabs",
+        "<all_urls>",
+        "webRequest",
+        "webRequestBlocking"
+    ]
+}
