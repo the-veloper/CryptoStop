@@ -6,24 +6,34 @@
  * @source      https://github.com/the-veloper/CryptoStop
  */
 
-const setButtonText = (isEnabled) => {
-	if (isEnabled) {
-		document.querySelector('.toggle').innerHTML = 'Turn Off';
-	} else {
-		document.querySelector('.toggle').innerHTML = 'Turn On';
-	}
+const setCheckboxes = (config) => {
+  document.querySelector('#domain-block').checked = config.domainToggle;
+  document.querySelector('#ip-block').checked = config.ipToggle;
+  document.querySelector('#pattern-block').checked = config.PatternToggle;
 }
-// Pause/Unpause
-document.querySelector('.toggle').addEventListener('click', () => {
-    chrome.runtime.sendMessage({ type: 'TOGGLE' }, (response) => {
-		setButtonText(response);
+// Domain Toggle
+document.querySelector('#domain-block').addEventListener('click', () => {
+    chrome.runtime.sendMessage({ type: 'DOMAINTOGGLE' }, (response) => {
+  setCheckboxes(response);
     });
+});
+// IP Toggle
+document.querySelector('#ip-block').addEventListener('click', () => {
+  chrome.runtime.sendMessage({ type: 'IPTOGGLE' }, (response) => {
+  setCheckboxes(response);
+  });
+});
+// Pattern Toggle
+document.querySelector('#pattern-block').addEventListener('click', () => {
+  chrome.runtime.sendMessage({ type: 'PATTOGGLE' }, (response) => {
+  setCheckboxes(response);
+  });
 });
 
 chrome.tabs.query({ currentWindow: true, active: true }, tabs => {
     if (tabs && tabs[0]) {
         chrome.runtime.sendMessage({ type: 'GET_STATE' }, (response) => {
-            setButtonText(response.toggle);
+          setCheckboxes(response);
         });
     }
 });

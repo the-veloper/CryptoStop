@@ -26,6 +26,9 @@ fetch(blacklist).then(resp => {
 // Defaults
 const defaultConfig = {
   toggle: true,
+  domainToggle: true,
+  ipToggle: true,
+  PatternToggle: true,
   whitelist: [],
 };
 
@@ -82,7 +85,7 @@ const isBlackListedFilename = (text) => {
 
 const isBlackListedURL = (url) => {
   for (var i = 0; i < blackURLs.length; i++) {
-    if (compareWildCard(url, blackURLs[i])) return true;
+    if (compareWildCard(url, blackURLs[i])z) return true && config.domainToggle;
   }
   return false;
 }
@@ -113,10 +116,23 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       saveConfig();
       sendResponse(config.toggle);
       break;
+    case 'DOMAINTOGGLE':
+      config.domainToggle = !config.domainToggle;
+      saveConfig();
+      sendResponse(config);
+      break;
+    case 'IPTOGGLE':
+      config.ipToggle = !config.ipToggle;
+      saveConfig();
+      sendResponse(config);
+      break;
+    case 'PATTOGGLE':
+      config.PatternToggle = !config.PatternToggle;
+      saveConfig();
+      sendResponse(config);
+      break;
     case 'GET_STATE':
-      sendResponse({
-        toggle: config.toggle
-      });
+      sendResponse(config);
       break;
   }
 });
