@@ -3,7 +3,8 @@
 }
 
 #header{
-	border-bottom: 1px solid red;
+	border-bottom: 1px solid #eeeeee;
+	margin-bottom: 30px;
 }
 
 .text-center{
