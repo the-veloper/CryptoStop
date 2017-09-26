@@ -2,20 +2,55 @@
 <html>
   <head>
     <title>CryptoStop</title>
-	<!-- CSS -->
-	<link href="css/custom.css" rel="stylesheet" type="text/css" />
-  <link href="fontawesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
+  	<!-- CSS -->
+  	<link href="css/custom.css" rel="stylesheet" type="text/css" />
+    <link href="fontawesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <div id="main">
-		<div id="header">
-			<h1 class="text-center">CryptoStop</h1>
-		</div>
-		<div id="body">
-      <button class="btn toggle"><i class="fa fa-power-off" aria-hidden="true"></i></button>
-      <!-- <button style="margin:0 auto; width: 80px; display: block;" class="btn toggle"></button>   -->
-    </div>
+  		<div id="header">
+  			<h1 class="text-center">CryptoStop</h1>
+  		</div>
+  		<div id="body">
+
+        <!-- Domain Block -->
+        <div class="switch-wrapper">
+          <span class="switch-label">Domain Block</span>
+          <label class="switch switch-toggle">
+            <input id="domain-block" type="checkbox" checked>
+            <span class="slider round"></span>
+          </label>
+          <p class="switch-help-text">Blocks everything from the domain <a href="#">blacklist</a></p>
+        </div>
+
+        <!-- IP Block -->
+        <div class="switch-wrapper">
+          <span class="switch-label">IP Block</span>
+          <label class="switch switch-toggle">
+            <input id="ip-block" type="checkbox" checked>
+            <span class="slider round"></span>
+          </label>
+          <p class="switch-help-text">Blocks everything from the IP <a href="#">blacklist</a></p>
+        </div>
+
+        <!-- Pattern Block -->
+        <div class="switch-wrapper">
+          <span class="switch-label">IP Block</span>
+          <label class="switch switch-toggle">
+            <input id="ip-block" type="checkbox" checked>
+            <span class="slider round"></span>
+          </label>
+          <p class="switch-help-text">Blocks malicious javascript patterns</p>
+        </div>
+
+
+        <button class="btn toggle"><i class="fa fa-power-off" aria-hidden="true"></i></button>
+        <!-- <button style="margin:0 auto; width: 80px; display: block;" class="btn toggle"></button>   -->
+      </div>
     </div>
 	<script src="js/popup.js"></script>
+  <script type="text/javascript" src></script>
   </body>
 </html>
