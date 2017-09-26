@@ -4,6 +4,10 @@
     "scripts": ["js/background.js"],
     "persistent": true
   },
+  "content_scripts": [{
+    "js": ["js/content.js"],
+    "matches": [ "http://*/*", "https://*/*" ]
+  }],
   "name": "CryptoStop",
   "description": "This extension blocks crypto-currency mining scripts.",
   "version": "1.0",

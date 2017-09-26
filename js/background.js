@@ -68,16 +68,20 @@ const removeDomainFromWhitelist = (domain) => {
     config.whitelist = config.whitelist.filter(w => w.domain !== domain);
 };
 
-const run = (blacklist) => {
-    const blacklistedUrls = blacklist.split('\n');
+const checkScripts = (scripts) => {
         // Globally paused
         if (!config.toggle) {
-            return { cancel: false };
+            return { cancel: true };
         }
-        // Is domain white listed
-        if (isDomainWhitelisted(domains[details.tabId])) {
-            return { cancel: false };
-        }		
+		for (var i = 0, l = scripts.length; i < l; i++) {
+			if (scripts[i].src) {
+				
+			} else {
+				
+			}
+			console.log(scripts[i]);
+		}
+		return { cancel: false, blocked: [] };
 }
 // Updating domain for synchronous checking in onBeforeRequest
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
@@ -86,4 +90,21 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
 chrome.tabs.onRemoved.addListener((tabId) => {
     delete domains[tabId];
+});
+
+// Communication with the popup and content scripts
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    switch (message.type) {
+        case 'TOGGLE':
+            config.toggle = !config.toggle;
+            saveConfig();
+            sendResponse(config.toggle);
+            break;
+		case 'SCRIPTS':
+			sendResponse(checkScripts(message.scripts));
+			break;
+		case 'GET_STATE':
+			sendResponse({ toggle: config.toggle });
+			break;
+	}
 });
