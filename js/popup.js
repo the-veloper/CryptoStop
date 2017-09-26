@@ -5,13 +5,13 @@
  * @license     MIT
  * @source      https://github.com/the-veloper/CryptoStop
  */
- 
+
 const setButtonText = (isEnabled) => {
 	if (isEnabled) {
 		document.querySelector('.toggle').innerHTML = 'Turn Off';
 	} else {
 		document.querySelector('.toggle').innerHTML = 'Turn On';
-	}	
+	}
 }
 // Pause/Unpause
 document.querySelector('.toggle').addEventListener('click', () => {
