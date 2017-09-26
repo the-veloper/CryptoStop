@@ -1,0 +1,11 @@
+#main{
+	width: 300px;
+}
+
+#header{
+	border-bottom: 1px solid red;
+}
+
+.text-center{
+	text-align: center;
+}
