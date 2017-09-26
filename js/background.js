@@ -5,6 +5,25 @@
  * @license     MIT
  * @source      https://github.com/the-veloper/CryptoStop
  */
+ 
+const blacklist = 'https://raw.githubusercontent.com/the-veloper/CryptoStop/dev/blacklist.txt';
+fetch(blacklist)
+    .then(resp => {
+        if (resp.status !== 200) {
+            throw 'HTTP Error';
+        }
+
+        resp.text().then((text) => {
+            if (text === '') {
+                throw 'Empty response';
+            }
+
+            update(text);
+        });
+    })
+    .catch(err => {
+        fallBackUpdate();
+    });
 
 // Defaults
 const defaultConfig = {
@@ -22,18 +41,27 @@ let config = {
  * Variables
  */
 let domains = [];
+let blackURLs = [];
+let blackPatterns = [];
 
 /**
  * Functions
  */
-const saveConfig = () => {
-    localStorage.setItem('config', JSON.stringify(config));
+ 
+const update = (text) => {
+	lists = text.split(';');
+    blackURLs = lists[0].split('\n');
 };
 
-const getDomain = (url) => {
-    const match = url.match(/:\/\/(.[^/]+)/);
-    
-    return match ? match[1] : '';
+const fallBackUpdate = () => {
+    fetch(chrome.runtime.getURL('blacklist.txt'))
+        .then(resp => {
+            resp.text().then(text => update(text));
+        });
+};
+
+const saveConfig = () => {
+    localStorage.setItem('config', JSON.stringify(config));
 };
 
 const isDomainWhitelisted = (domain) => {
@@ -68,29 +96,37 @@ const removeDomainFromWhitelist = (domain) => {
     config.whitelist = config.whitelist.filter(w => w.domain !== domain);
 };
 
-const checkScripts = (scripts) => {
-        // Globally paused
-        if (!config.toggle) {
-            return { cancel: true };
-        }
-		for (var i = 0, l = scripts.length; i < l; i++) {
-			if (scripts[i].src) {
-				
-			} else {
-				
-			}
-			console.log(scripts[i]);
-		}
-		return { cancel: false, blocked: [] };
+const wildCompareNew = (string, search) => {
+    var startIndex = 0, array = search.split('*');
+    for (var i = 0; i < array.length; i++) {
+        var index = string.indexOf(array[i], startIndex);
+        if (index == -1) return false;
+        else startIndex = index;
+    }
+    return true;
 }
-// Updating domain for synchronous checking in onBeforeRequest
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    domains[tabId] = getDomain(tab.url);
-});
 
-chrome.tabs.onRemoved.addListener((tabId) => {
-    delete domains[tabId];
-});
+const isBlackListedPattern = (text) => {
+	return false;
+}
+
+const isBlackListedURL = (url) => {
+  for (var i = 0; i < blackURLs.length; i++) {
+	if (wildCompareNew(url, blackURLs[i])) return true;
+  }
+  return false;
+}
+
+chrome.webRequest.onBeforeRequest.addListener(
+        function(details) {
+			if (config.toggle) {
+				for(burl in blackURLs) {
+				  if (isBlackListedURL(details.url, blackURLs[burl])) return {cancel: true};
+				}
+			}
+        },
+        {urls: ["<all_urls>"]},
+        ["blocking"]);
 
 // Communication with the popup and content scripts
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -100,9 +136,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             saveConfig();
             sendResponse(config.toggle);
             break;
-		case 'SCRIPTS':
-			sendResponse(checkScripts(message.scripts));
-			break;
 		case 'GET_STATE':
 			sendResponse({ toggle: config.toggle });
 			break;
