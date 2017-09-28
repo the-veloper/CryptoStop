@@ -11,6 +11,10 @@ body{
 	margin-bottom: 30px;
 }
 
+#header #main-logo{
+	margin-bottom: 8px;
+}
+
 #footer{
 	margin-bottom: 5px;
 }
