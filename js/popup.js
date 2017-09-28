@@ -11,7 +11,7 @@ $('#blacklist').select2({
   data: ['www.domain.com'],
   tags: true,
   tokenSeparators: ['\n'],
-  placeholder: "Add your tags here"
+  placeholder: "Add website/IP here and press enter"
 });
 $('#whitelist').select2({
   width: '300px',
@@ -19,7 +19,7 @@ $('#whitelist').select2({
   data: ['www.domain.com'],
   tags: true,
   tokenSeparators: ['\n'],
-  placeholder: "Add your tags here"
+  placeholder: "Add website/IP here and press enter"
 });
 
 $('#whitelist').on('select2:select', function (e) {
