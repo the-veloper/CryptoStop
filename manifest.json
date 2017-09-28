@@ -6,6 +6,7 @@
   },
   "name": "CryptoStop",
   "description": "This extension blocks crypto-currency mining scripts.",
+  "short_name": "CryptoStop",
   "version": "1.0",
   "icons": {
     "128": "images/icon.png"
