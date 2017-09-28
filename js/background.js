@@ -30,6 +30,7 @@ const defaultConfig = {
   ipToggle: true,
   PatternToggle: true,
   whitelist: [],
+  blacklist: [],
 };
 
 const localConfig = JSON.parse(localStorage.getItem('config'));
@@ -42,16 +43,90 @@ let config = {
  * Variables
  */
 let blackURLs = [];
+let blackIPs = [];
 let blackNames = [];
 
 /**
  * Functions
  */
 
+const getDomain = (url) => {
+  const match = url.match(/:\/\/(.[^/]+)/);
+
+  return match ? match[1] : '';
+};
+
+const isDomainWhitelisted = (domain) => {
+  if (!domain) return false;
+
+  const domainInfo = config.whitelist.find(w => w.domain === domain);
+
+  if (domainInfo) {
+    return true;
+  }
+
+  return false;
+};
+
+const isDomainBlacklisted = (domain) => {
+  if (!domain) return false;
+
+  const domainInfo = config.blacklist.find(w => w.domain === domain);
+
+  if (domainInfo) {
+    return true;
+  }
+
+  return false;
+};
+
+const addDomainToWhitelist = (domain) => {
+  if (!domain) return;
+
+  // Make sure the domain is not already whitelisted before adding it
+  if (!isDomainWhitelisted(domain)) {
+    config.whitelist = [
+        ...config.whitelist,
+        {
+          domain: domain
+        },
+  ];
+  }
+};
+
+const removeDomainFromBlacklist = (domain) => {
+  if (!domain) return;
+
+  config.blacklist = config.blacklist.filter(w => w.domain !== domain);
+};
+
+const addDomainToBlacklist = (domain) => {
+  if (!domain) return;
+
+  // Make sure the domain is not already whitelisted before adding it
+  if (!isDomainBlacklisted(domain)) {
+    config.blacklist = [
+        ...config.blacklist,
+        {
+          domain: domain
+        },
+  ];
+  }
+};
+
+const removeDomainFromWhitelist = (domain) => {
+  if (!domain) return;
+
+  config.whitelist = config.whitelist.filter(w => w.domain !== domain);
+};
+
 const update = (text) => {
   lists = text.split(';');
   blackURLs = lists[0].split('\n');
   blackNames = lists[1].split('\n');
+  blackIPs = lists[2].split('\n');
+  blackNames.shift();
+  blackIPs.shift();
 };
 
 const fallBackUpdate = () => {
@@ -78,32 +153,46 @@ const compareWildCard = (string, search) => {
 
 const isBlackListedFilename = (text) => {
   for (var i = 0; i < blackNames.length; i++) {
-    if (compareWildCard(url, blackNames[i])) return true;
+    if (compareWildCard(text, blackNames[i])) {
+      return true;
+    }
   }
   return false;
 }
 
 const isBlackListedURL = (url) => {
   for (var i = 0; i < blackURLs.length; i++) {
-    if (compareWildCard(url, blackURLs[i])z) return true && config.domainToggle;
+    if (compareWildCard(url, blackURLs[i])) return true;
+  }
+  return false;
+}
+
+const isBlackListedIP = (ip) => {
+  for (var i = 0; i < blackIPs.length; i++) {
+    if (compareWildCard(ip, blackIPs[i])) return true;
   }
   return false;
 }
 
 chrome.webRequest.onBeforeRequest.addListener(
     function(details) {
-      if (config.toggle) {
-        for (bURL in blackURLs) {
-          if (isBlackListedURL(details.url, blackURLs[bURL])) return {
-            cancel: true
-          };
-        }
-        for (bName in blackURLs) {
-          if (isBlackListedFilename(details.url, blackNames[bName])) return {
-            cancel: true
-          };
-        }
+      if(isDomainWhitelisted(getDomain(details.url))) {
+        return {cancel: false};
       }
+      var cancel = isDomainBlacklisted(getDomain(details.url));
+      if (details.url) {
+        if (config.domainToggle) {
+            if (isBlackListedURL(details.url)) cancel = true;
+        }
+        if (config.PatternToggle) {
+            if (isBlackListedFilename(details.url)) cancel = true;
+        }
+        if (config.ipToggle) {
+            if (isBlackListedIP(details.url)) cancel = true;
+        }
+        return {cancel: cancel };
+      }
+
     }, {
       urls: blackURLs
     }, ["blocking"]);
@@ -116,6 +205,30 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       saveConfig();
       sendResponse(config.toggle);
       break;
+    case 'BLACKLIST':
+      if(!isDomainBlacklisted(message.domain)) {
+        addDomainToBlacklist(message.domain);
+      } else {
+        removeDomainFromBlacklist(message.domain);
+      }
+      saveConfig();
+      sendResponse(true);
+      break;
+    case 'WHITELIST':
+      if(!isDomainWhitelisted(message.domain)) {
+        addDomainToWhitelist(message.domain);
+      } else {
+        removeDomainFromWhitelist(message.domain);
+      }
+      saveConfig();
+      sendResponse(true);
+      break;
+      case 'GET_WHITELIST':
+        sendResponse(config.whitelist);
+        break;
+      case 'GET_BLACKLIST':
+        sendResponse(config.blacklist);
+        break;
     case 'DOMAINTOGGLE':
       config.domainToggle = !config.domainToggle;
       saveConfig();

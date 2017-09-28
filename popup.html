@@ -7,11 +7,14 @@
   	<!-- CSS -->
   	<link href="css/custom.css" rel="stylesheet" type="text/css" />
     <link href="fontawesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <div id="main">
-  		<div id="header">
-  			<h1 class="text-center">CryptoStop</h1>
+  		<div id="header" class="text-center">
+            <img src="images/logo.png"  alt="CryptoStop"/>
   		</div>
   		<div id="body">
 
@@ -24,8 +27,7 @@
           </label>
           <p class="switch-help-text">Blocks everything from the domain <a href="#">blacklist</a></p>
         </div>
-
-        <!-- IP Block
+            <!-- IP Block -->
         <div class="switch-wrapper">
           <span class="switch-label">IP Block</span>
           <label class="switch switch-toggle">
@@ -34,33 +36,29 @@
           </label>
           <p class="switch-help-text">Blocks everything from the IP <a href="#">blacklist</a></p>
         </div>
-        -->
         <!-- Pattern Block -->
         <div class="switch-wrapper">
-          <span class="switch-label">Pattern Block</span>
-          <label class="switch switch-toggle">
-            <input id="pattern-block" type="checkbox" checked>
-            <span class="slider round"></span>
-          </label>
-          <p class="switch-help-text">Blocks malicious javascript patterns</p>
+            <span class="switch-label">Pattern Block</span>
+            <label class="switch switch-toggle">
+                <input id="pattern-block" type="checkbox" checked>
+                <span class="slider round"></span>
+            </label>
+            <p class="switch-help-text">Blocks malicious javascript patterns</p>
         </div>
 
-
-
-
-
-        <!-- Manual Whitelist
+        <!-- Manual Whitelist -->
         <div class="list-control">
-          <span class="list-label">Manual Domain/IP Whitelist</span>
-          <textarea class="list-textarea"></textarea>
+            <span class="list-label">Manual Domain/IP Whitelist</span>
+            <p class="switch-help-text">Separated by a new line</p>
+            <select id="whitelist" class="whitelist" multiple="multiple"></select>
         </div>
 
-        <!-- Manual Blacklist
+        <!-- Manual Blacklist -->
         <div class="list-control">
-          <span class="list-label">Manual Domain/IP Blacklist</span>
-          <textarea class="list-textarea"></textarea>
+            <span class="list-label">Manual Domain/IP Blacklist</span>
+            <select id="blacklist" class="blacklist" multiple="multiple"></select>
         </div>
-            -->
+
         <div id="footer">
           <!-- Credits -->
           <p class="subtle-text text-center">Powered by <a target="_blank" href="https://rso.bg">RSO Hosting &amp; Web Design</a></p>

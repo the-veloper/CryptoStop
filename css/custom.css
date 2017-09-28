@@ -4,7 +4,6 @@ body{
 
 #main{
 	width: 300px;
-	height: 250px;
 }
 
 #header{
@@ -90,11 +89,11 @@ input:checked + .slider:before {
 	margin-top: 4px;
 }
 
-.switch-wrapper .switch-help-text{
+.switch-help-text{
 	color: #6b6b6b;
 }
 
-.switch-wrapper .switch-help-text a{
+.switch-help-text a{
 	color: #606060;
 }
 
