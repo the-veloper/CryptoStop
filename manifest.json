@@ -7,14 +7,14 @@
   "name": "CryptoStop",
   "description": "This extension blocks crypto-currency mining scripts.",
   "short_name": "CryptoStop",
-  "version": "1.1",
+  "version": "1.2",
   "icons": {
     "128": "images/icon.png"
   },
   "browser_action": {
     "default_icon": "images/icon.png",
     "default_popup": "popup.html",
-	"default_title": "CryptoStop - stop crypto-currency mining on websites"
+	"default_title": "CryptoStop - stop cryptocurrency mining on websites"
   },
   "content_scripts": [
     {

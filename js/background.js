@@ -30,7 +30,7 @@ const defaultConfig = {
   ipToggle: true,
   PatternToggle: true,
   whitelist: [],
-  blacklist: [],
+  blacklist: []
 };
 
 const localConfig = JSON.parse(localStorage.getItem('config'));
@@ -45,6 +45,7 @@ let config = {
 let blackURLs = [];
 let blackIPs = [];
 let blackNames = [];
+let blackPatterns = [];
 
 /**
  * Functions
@@ -125,8 +126,10 @@ const update = (text) => {
   blackURLs = lists[0].split('\n');
   blackNames = lists[1].split('\n');
   blackIPs = lists[2].split('\n');
+  blackPatterns = lists[3].split('\n');
   blackNames.shift();
   blackIPs.shift();
+  blackPatterns.shift();
 };
 
 const fallBackUpdate = () => {
@@ -188,10 +191,8 @@ chrome.webRequest.onBeforeRequest.addListener(
             if (isBlackListedFilename(details.url)) cancel = true;
         }
         if (config.ipToggle) {
-          console.log(blackIPs);
             if (isBlackListedIP(details.url)) cancel = true;
         }
-        console.log(cancel);
         return {cancel: cancel };
       }
 
@@ -247,7 +248,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       sendResponse(config);
       break;
     case 'GET_STATE':
-      sendResponse(config);
+      sendResponse({...config, blackPatterns: blackPatterns});
       break;
   }
 });

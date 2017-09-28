@@ -5,4 +5,20 @@
  * @license     MIT
  * @source      https://github.com/the-veloper/CryptoStop
  */
-// @TODO
+// Variables
+let tests = [];
+let toggle;
+
+chrome.runtime.sendMessage({ type: 'GET_STATE' }, (response) => {
+  toggle = response.PatternToggle;
+  tests = response.blackPatterns;
+if (toggle) {
+    var content = new XMLSerializer().serializeToString(document);
+    for (i in tests) {
+      if (content.match(tests[i])) {
+        document.write('');
+        break;
+      }
+    }
+  }
+});

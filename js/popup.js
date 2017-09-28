@@ -39,7 +39,6 @@ const setCheckboxes = (config) => {
   document.querySelector('#domain-block').checked = config.domainToggle;
   document.querySelector('#ip-block').checked = config.ipToggle;
   document.querySelector('#pattern-block').checked = config.PatternToggle;
-
 }
 
 const setLists = (config) => {
