@@ -7,6 +7,11 @@ wss://*.coin-hive.com/proxy*
 *://mataharirama.xyz/*
 *://listat.biz/*
 *://lmodr.biz/*
-*://minecrunch.co/web/*;
+*://minecrunch.co/web/*
+*://cnhv.co/*
+*://gus.host/*
+*://*jsecoin.com/*
+*://*pr0gramm.com/*
+*://minemytraffic.com/*;
 *coinhive*.js;
 94.130.90.152/lib*
