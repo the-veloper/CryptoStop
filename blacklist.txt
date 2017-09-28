@@ -9,3 +9,4 @@ wss://*.coin-hive.com/proxy*
 *://lmodr.biz/*
 *://minecrunch.co/web/*;
 *coinhive*.js;
+94.130.90.152/lib*;
