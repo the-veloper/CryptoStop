@@ -5,7 +5,7 @@
  * @license     MIT
  * @source      https://github.com/the-veloper/CryptoStop
  */
-const blacklist = 'https://raw.githubusercontent.com/the-veloper/CryptoStop/dev/blacklist.txt';
+const blacklist = 'https://raw.githubusercontent.com/the-veloper/CryptoStop/master/blacklist.txt';
 fetch(blacklist).then(resp => {
   if (resp.status !== 200) {
   throw 'HTTP Error';
@@ -188,8 +188,10 @@ chrome.webRequest.onBeforeRequest.addListener(
             if (isBlackListedFilename(details.url)) cancel = true;
         }
         if (config.ipToggle) {
+          console.log(blackIPs);
             if (isBlackListedIP(details.url)) cancel = true;
         }
+        console.log(cancel);
         return {cancel: cancel };
       }
 
