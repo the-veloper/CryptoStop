@@ -26,12 +26,15 @@ $('#whitelist').on('select2:select', function (e) {
   chrome.runtime.sendMessage({type: 'WHITELIST', domain: e.params.data.text});
 });
 $('#blacklist').on('select2:select', function (e) {
-  if(!chrome.runtime.sendMessage({type: 'BLACKLIST', domain: e.params.data.text})) {
-    $("#blacklist-error").show().delay(1500).fadeOut();
-    $("#blacklist option[value='" + e.params.data.text + "']")
-    .prop("selected", false).change();
-  }
+  chrome.runtime.sendMessage({type: 'BLACKLIST', domain: e.params.data.text}, (response) => {
+    if (!response) {
+      $("#blacklist-error").show().delay(1500).fadeOut();
+      $("#blacklist option[value='" + e.params.data.text + "']")
+      .prop("selected", false).change();
+    }
+  });
 });
+
 $('#whitelist').on('select2:unselect', function (e) {
   chrome.runtime.sendMessage({type: 'WHITELIST', domain: e.params.data.text});
 });

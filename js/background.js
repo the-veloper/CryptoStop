@@ -99,6 +99,8 @@ const removeDomainFromBlacklist = (domain) => {
   if (!domain) return;
 
   config.blacklist = config.blacklist.filter(w => w.domain !== domain);
+
+  return true;
 };
 
 const addDomainToBlacklist = (domain) => {
@@ -114,6 +116,7 @@ const addDomainToBlacklist = (domain) => {
         },
   ];
   }
+  return true;
 };
 
 const removeDomainFromWhitelist = (domain) => {
