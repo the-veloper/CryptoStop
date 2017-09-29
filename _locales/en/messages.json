@@ -3,10 +3,10 @@
     "message": "CryptoStop"
   },
   "appDesc": {
-    "message": "This extension blocks cryptocurrency mining scripts."
+    "message": "This extension blocks cryptocurrency mining scripts and protects you from such websites."
   },
   "placeholder": {
-    "message": "Add website/IP here and press enter"
+    "message": "Add website/IP here and press ENTER"
   },
   "domainBlock": {
     "message": "Domain Block"
