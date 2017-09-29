@@ -43,5 +43,8 @@
   },
   "credits": {
     "message": "RSO Hosting &amp; Web Design"
+  },
+  "blockedScripts": {
+    "message": "Blocked mining scripts:"
   }
 }

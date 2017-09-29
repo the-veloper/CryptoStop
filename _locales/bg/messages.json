@@ -43,5 +43,8 @@
   },
   "credits": {
     "message": "RSO Хостинг &amp; Уеб Дизайн"
+  },
+  "blockedScripts": {
+    "message": "Блокирани копаещи скриптове:"
   }
 }

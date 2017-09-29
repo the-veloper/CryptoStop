@@ -7,7 +7,7 @@
   "name": "__MSG_appName__",
   "description": "__MSG_appDesc__",
   "short_name": "__MSG_appName__",
-  "version": "2.1",
+  "version": "2.2",
   "icons": {
     "128": "images/icon.png"
   },
@@ -21,6 +21,10 @@
     {
       "matches": ["*://*/*.js*"],
       "js": ["js/patterns.js"]
+    },
+    {
+      "matches": ["*://*/**"],
+      "js": ["js/jquery.min.js", "js/notify.min.js", "js/notification.js"]
     }
 
   ],

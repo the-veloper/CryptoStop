@@ -43,6 +43,7 @@ let blackURLs = [];
 let blackIPs = [];
 let blackNames = [];
 let blackPatterns = [];
+let counter = 0;
 
 /**
  * Functions
@@ -195,6 +196,9 @@ chrome.webRequest.onBeforeRequest.addListener(
           if (isBlackListedIP(details.url)) cancel = true;
         }
       }
+      if (cancel) {
+        counter++;
+      }
       return {cancel: cancel };
 
     }, {
@@ -208,6 +212,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       config.toggle = !config.toggle;
       saveConfig();
       sendResponse(config.toggle);
+      break;
+    case 'BLOCKED':
+      sendResponse(counter);
+      break;
+    case 'RESETCOUNT':
+      counter = 0;
+      sendResponse(true);
       break;
     case 'BLACKLIST':
       var result;
