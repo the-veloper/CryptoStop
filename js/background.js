@@ -72,7 +72,7 @@ const isDomainWhitelisted = (domain) => {
 const isDomainBlacklisted = (domain) => {
   if (!domain) return false;
 
-  const domainInfo = config.blacklist.find(w => w.domain === domain);
+  const domainInfo = config.blacklist.find(w => compareWildCard(domain, w.domain) == true);
 
   if (domainInfo) {
     return true;
@@ -103,6 +103,7 @@ const removeDomainFromBlacklist = (domain) => {
 
 const addDomainToBlacklist = (domain) => {
   if (!domain) return;
+  if (domain.match(/(?:[A-z0-9])?\*[A-z0-9]/g)) return;
 
   // Make sure the domain is not already whitelisted before adding it
   if (!isDomainBlacklisted(domain)) {
@@ -191,13 +192,13 @@ chrome.webRequest.onBeforeRequest.addListener(
             if (isBlackListedFilename(details.url)) cancel = true;
         }
         if (config.ipToggle) {
-            if (isBlackListedIP(details.url)) cancel = true;
+          if (isBlackListedIP(details.url)) cancel = true;
         }
-        return {cancel: cancel };
       }
+      return {cancel: cancel };
 
     }, {
-      urls: blackURLs
+      urls: [...blackURLs, ...blackIPs, ...blackNames, ...config.blacklist.map(function(t) { if(getDomain(t.domain)) return t.domain; else return '*://' + t.domain + '/*'; })]
     }, ["blocking"]);
 
 // Communication with the popup and content scripts
@@ -209,13 +210,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       sendResponse(config.toggle);
       break;
     case 'BLACKLIST':
+      var result;
       if(!isDomainBlacklisted(message.domain)) {
-        addDomainToBlacklist(message.domain);
+        result = addDomainToBlacklist(message.domain);
       } else {
-        removeDomainFromBlacklist(message.domain);
+        result = removeDomainFromBlacklist(message.domain);
       }
       saveConfig();
-      sendResponse(true);
+      sendResponse(result);
       break;
     case 'WHITELIST':
       if(!isDomainWhitelisted(message.domain)) {
