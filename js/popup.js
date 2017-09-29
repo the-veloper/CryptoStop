@@ -2,7 +2,7 @@
  * CryptoStop
  **
  * @author      Georgi Georgiev <RSO.BG>
- * @license     MIT
+ * @license     CC BY-NC-ND 3.0
  * @source      https://github.com/the-veloper/CryptoStop
  */
 function localizeHtmlPage()
