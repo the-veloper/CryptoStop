@@ -5,13 +5,36 @@
  * @license     MIT
  * @source      https://github.com/the-veloper/CryptoStop
  */
+function localizeHtmlPage()
+{
+  //Localize by replacing __MSG_***__ meta tags
+  var objects = document.getElementsByTagName('html');
+  for (var j = 0; j < objects.length; j++)
+  {
+    var obj = objects[j];
+
+    var valStrH = obj.innerHTML.toString();
+    var valNewH = valStrH.replace(/__MSG_(\w+)__/g, function(match, v1)
+    {
+      return v1 ? chrome.i18n.getMessage(v1) : "";
+    });
+
+    if(valNewH != valStrH)
+    {
+      obj.innerHTML = valNewH;
+    }
+  }
+}
+
+localizeHtmlPage();
+
 $('#blacklist').select2({
   width: '300px',
   height: '15px',
   data: ['www.domain.com'],
   tags: true,
   tokenSeparators: ['\n'],
-  placeholder: "Add website/IP here and press enter"
+  placeholder: chrome.i18n.getMessage('placeholder')
 });
 $('#whitelist').select2({
   width: '300px',
@@ -19,7 +42,7 @@ $('#whitelist').select2({
   data: ['www.domain.com'],
   tags: true,
   tokenSeparators: ['\n'],
-  placeholder: "Add website/IP here and press enter"
+  placeholder: chrome.i18n.getMessage('placeholder')
 });
 
 $('#whitelist').on('select2:select', function (e) {

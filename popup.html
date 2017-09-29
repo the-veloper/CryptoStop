@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>CryptoStop</title>
+    <title>__MSG_appName__</title>
 
     <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
   	<!-- CSS -->
@@ -10,59 +10,60 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/select2.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <meta charset="UTF-8">
   </head>
   <body>
     <div id="main">
   		<div id="header" class="text-center">
-            <a target="_blank" href="https://rso.bg/s/APTQ4D4"><img class="hvr-rotate" id="main-logo" src="images/logo.png"  alt="CryptoStop"/></a>
+            <a target="_blank" href="https://rso.bg/s/APTQ4D4"><img class="hvr-rotate" id="main-logo" src="images/logo.png" alt="__MSG_appName__"/></a>
   		</div>
   		<div id="body">
 
         <!-- Domain Block -->
         <div class="switch-wrapper">
-          <span class="switch-label">Domain Block</span>
+          <span class="switch-label">__MSG_domainBlock__</span>
           <label class="switch switch-toggle">
             <input id="domain-block" type="checkbox" checked>
             <span class="slider round"></span>
           </label>
-          <p class="switch-help-text">Blocks everything from the domain <a target="_blank" href="https://raw.githubusercontent.com/the-veloper/CryptoStop/master/blacklist.txt">blacklist</a></p>
+          <p class="switch-help-text">__MSG_domainDesc__ <a target="_blank" href="https://raw.githubusercontent.com/the-veloper/CryptoStop/master/blacklist.txt">__MSG_blacklist__</a></p>
         </div>
             <!-- IP Block -->
         <div class="switch-wrapper">
-          <span class="switch-label">IP Block</span>
+          <span class="switch-label">__MSG_ipBlock__</span>
           <label class="switch switch-toggle">
             <input id="ip-block" type="checkbox" checked>
             <span class="slider round"></span>
           </label>
-          <p class="switch-help-text">Blocks everything from the IP <a target="_blank" href="https://raw.githubusercontent.com/the-veloper/CryptoStop/master/blacklist.txt">blacklist</a></p>
+          <p class="switch-help-text">__MSG_ipDesc__ <a target="_blank" href="https://raw.githubusercontent.com/the-veloper/CryptoStop/master/blacklist.txt">__MSG_blacklist__</a></p>
         </div>
         <!-- Pattern Block -->
         <div class="switch-wrapper">
-            <span class="switch-label">Pattern Block</span>
+            <span class="switch-label">__MSG_patternBlock__</span>
             <label class="switch switch-toggle">
                 <input id="pattern-block" type="checkbox" checked>
                 <span class="slider round"></span>
             </label>
-            <p class="switch-help-text">Blocks malicious javascript patterns</p>
+            <p class="switch-help-text">__MSG_patternDesc__</p>
         </div>
 
         <!-- Manual Whitelist -->
         <div class="list-control">
-            <span class="list-label">Manual Domain/IP Whitelist</span>
+            <span class="list-label">__MSG_whitelistLabel__</span>
             <select id="whitelist" class="whitelist" multiple="multiple"></select>
         </div>
 
         <!-- Manual Blacklist -->
         <div class="list-control">
-            <span class="list-label">Manual Domain/IP Blacklist</span>
+            <span class="list-label">__MSG_blacklistLabel__</span>
             <br />
-            <strong id="blacklist-error" style="display: none;">Invalid URL Pattern!</strong>
+            <strong id="blacklist-error" style="display: none;">__MSG_blacklistError__</strong>
             <select id="blacklist" class="blacklist" multiple="multiple"></select>
         </div>
 
         <div id="footer">
           <!-- Credits -->
-          <p class="subtle-text text-center">Powered by <a target="_blank" href="https://rso.bg/s/APTQ4D4">RSO Hosting &amp; Web Design</a></p>
+          <p class="subtle-text text-center">__MSG_poweredBy__ <a target="_blank" href="https://rso.bg/s/APTQ4D4">__MSG_credits__</a></p>
         </div>
 
       </div>

@@ -1,0 +1,47 @@
+{
+  "appName": {
+    "message": "CryptoStop"
+  },
+  "appDesc": {
+    "message": "This extension blocks cryptocurrency mining scripts."
+  },
+  "placeholder": {
+    "message": "Add website/IP here and press enter"
+  },
+  "domainBlock": {
+    "message": "Domain Block"
+  },
+  "ipBlock": {
+    "message": "IP Block"
+  },
+  "patternBlock": {
+    "message": "Pattern Block"
+  },
+  "domainDesc": {
+    "message": "Blocks everything from the domain"
+  },
+  "ipDesc": {
+    "message": "Blocks everything from the IP"
+  },
+  "patternDesc": {
+    "message": "Blocks malicious javascript patterns"
+  },
+  "blacklist": {
+    "message": "blacklist"
+  },
+  "whitelistLabel": {
+    "message": "Manual Domain/IP Whitelist"
+  },
+  "blacklistLabel": {
+    "message": "Manual Domain/IP Blacklist"
+  },
+  "blacklistError": {
+    "message": "Invalid URL Pattern!"
+  },
+  "poweredBy": {
+    "message": "Powered by"
+  },
+  "credits": {
+    "message": "RSO Hosting &amp; Web Design"
+  }
+}

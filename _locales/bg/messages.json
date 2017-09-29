@@ -1,0 +1,47 @@
+{
+  "appName": {
+    "message": "КриптоСтоп"
+  },
+  "appDesc": {
+    "message": "Това разширение блокира скриптове, добиващи криптовалути."
+  },
+  "placeholder": {
+    "message": "Добавете домейн/IP и натиснете ENTER"
+  },
+  "domainBlock": {
+    "message": "Домейн Блок"
+  },
+  "ipBlock": {
+    "message": "IP Блок"
+  },
+  "patternBlock": {
+    "message": "Поведенчески Блок"
+  },
+  "domainDesc": {
+    "message": "Блокира всички ресурси от всички домейни в"
+  },
+  "ipDesc": {
+    "message": "Блокира всички ресурси от всички IP-та в"
+  },
+  "patternDesc": {
+    "message": "Прихваща и блокира определени модели на поведение"
+  },
+  "blacklist": {
+    "message": "черния списък"
+  },
+  "whitelistLabel": {
+    "message": "Ръчно разрешаване на домейн/IP"
+  },
+  "blacklistLabel": {
+    "message": "Ръчно забраняване на домейн/IP"
+  },
+  "blacklistError": {
+    "message": "Невалиден URL!"
+  },
+  "poweredBy": {
+    "message": "Създадено от"
+  },
+  "credits": {
+    "message": "RSO Хостинг &amp; Уеб Дизайн"
+  }
+}
