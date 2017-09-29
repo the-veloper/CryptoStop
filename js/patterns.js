@@ -12,13 +12,15 @@ let toggle;
 chrome.runtime.sendMessage({ type: 'GET_STATE' }, (response) => {
   toggle = response.PatternToggle;
   tests = response.blackPatterns;
-if (toggle) {
-    var content = new XMLSerializer().serializeToString(document);
-    for (i in tests) {
-      if (content.match(tests[i])) {
-        document.write('');
-        break;
+  if (toggle) {
+    chrome.runtime.sendMessage({ type: 'IS_WHITELISTED', url: location.href }, (response) => {
+      var content = new XMLSerializer().serializeToString(document);
+      for (i in tests) {
+        if (content.match(tests[i])) {
+          document.write('');
+          break;
+        }
       }
-    }
+  });
   }
 });

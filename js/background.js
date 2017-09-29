@@ -249,6 +249,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       saveConfig();
       sendResponse(config);
       break;
+    case 'IS_WHITELISTED':
+      sendResponse(isDomainWhitelisted(getDomain(message.url)));
+      break;
     case 'GET_STATE':
       sendResponse(Object.assign({}, config, {blackPatterns: blackPatterns}));
       break;
