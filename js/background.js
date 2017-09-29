@@ -34,10 +34,7 @@ const defaultConfig = {
 };
 
 const localConfig = JSON.parse(localStorage.getItem('config'));
-let config = {
-    ...defaultConfig,
-    ...localConfig,
-};
+let config = Object.assign ({},defaultConfig,localConfig);
 
 /**
  * Variables
@@ -253,7 +250,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       sendResponse(config);
       break;
     case 'GET_STATE':
-      sendResponse({...config, blackPatterns: blackPatterns});
+      sendResponse(Оbject.assign({}, config, {blackPatterns: blackPatterns}));
       break;
   }
 });
