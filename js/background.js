@@ -214,6 +214,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       sendResponse(config.toggle);
       break;
     case 'BLOCKED':
+      if (counter < 9) {
+        chrome.browserAction.setBadgeText({text: "" + counter});
+      } else {
+        chrome.browserAction.setBadgeText({text: "10+"}); // We have 10+ blocked scripts.
+      }
       sendResponse(counter);
       break;
     case 'RESETCOUNT':
