@@ -214,11 +214,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       sendResponse(config.toggle);
       break;
     case 'BLOCKED':
-      if (counter < 9) {
-        chrome.browserAction.setBadgeText({text: "" + counter});
-      } else {
-        chrome.browserAction.setBadgeText({text: "10+"}); // We have 10+ blocked scripts.
-      }
+      chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        if (counter < 9) {
+          chrome.browserAction.setBadgeText({text: "" + counter, tabId: tabs[0].id});
+        } else {
+          chrome.browserAction.setBadgeText({text: "10+", tabId: tabs[0].id}); // We have 10+ blocked scripts.
+        }
+      });
+
       sendResponse(counter);
       break;
     case 'RESETCOUNT':

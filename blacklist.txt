@@ -13,6 +13,14 @@ wss://*.coin-hive.com/proxy*
 *://*jsecoin.com/*
 *://*pr0gramm.com/*
 *://minemytraffic.com/*;
-*coinhive*.js;
+*coinhive*.js
+dolladollabillz.js;
 94.130.90.152/lib*;
-var Miner;
+var Miner
+miningSettings
+startMiner
+CoinHive.Anonymous
+CoinHive.
+CoinHive.User
+CoinHive.*
+var miningSettings;
