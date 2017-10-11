@@ -1,6 +1,8 @@
 *://coin-hive.com/lib*
+*://coinhive.com/lib*
 *://coin-hive.com/captcha*
 wss://*.coin-hive.com/proxy*
+wss://*.coinhive.com/proxy*
 *://jsecoin.com/server*
 *://*.jsecoin.com/server*
 *://static.reasedoper.pw/*
@@ -14,7 +16,8 @@ wss://*.coin-hive.com/proxy*
 *://*pr0gramm.com/*
 *://minemytraffic.com/*;
 *coinhive*.js
-dolladollabillz.js;
+*cryptonight.wasm
+*dolladollabillz.js;
 94.130.90.152/lib*;
 var Miner
 miningSettings
