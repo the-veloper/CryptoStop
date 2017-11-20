@@ -179,6 +179,18 @@ const isBlackListedIP = (ip) => {
   return false;
 }
 
+const updateCounter = (counter) => {
+      chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+		if(tabs[0] !== undefined) {
+			if (counter < 9) {
+			  chrome.browserAction.setBadgeText({text: "" + counter, tabId: tabs[0].id});
+			} else {
+			  chrome.browserAction.setBadgeText({text: "10+", tabId: tabs[0].id}); // We have 10+ blocked scripts.
+			}
+		}
+      });
+}
+
 chrome.webRequest.onBeforeRequest.addListener(
     function(details) {
       if(isDomainWhitelisted(getDomain(details.url))) {
@@ -214,18 +226,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       sendResponse(config.toggle);
       break;
     case 'BLOCKED':
-      chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        if (counter < 9) {
-          chrome.browserAction.setBadgeText({text: "" + counter, tabId: tabs[0].id});
-        } else {
-          chrome.browserAction.setBadgeText({text: "10+", tabId: tabs[0].id}); // We have 10+ blocked scripts.
-        }
-      });
-
+	  updateCounter(counter);
       sendResponse(counter);
       break;
     case 'RESETCOUNT':
       counter = 0;
+      sendResponse(true);
+      break;
+	case 'COUNT':
+      counter++;
+	  updateCounter(counter);
       sendResponse(true);
       break;
     case 'BLACKLIST':

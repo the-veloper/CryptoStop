@@ -7,7 +7,7 @@
   "name": "__MSG_appName__",
   "description": "__MSG_appDesc__",
   "short_name": "__MSG_appName__",
-  "version": "2.3",
+  "version": "2.4",
   "icons": {
     "128": "images/icon.png"
   },
@@ -19,15 +19,13 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://*/*.js*"],
-      "js": ["js/patterns.js"]
-    },
-    {
-      "matches": ["*://*/**"],
-      "js": ["js/jquery.min.js", "js/notify.min.js", "js/notification.js"]
+      "matches": ["<all_urls>"],
+	  "run_at": "document_end",
+      "js": ["js/jquery.min.js", "js/notify.min.js", "js/notification.js", "js/removeStart.js"]
     }
 
   ],
+  "web_accessible_resources": ["js/removeHive.js"],
   "permissions": [
         "activeTab",
         "tabs",
