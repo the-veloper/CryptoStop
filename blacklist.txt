@@ -44,6 +44,7 @@ wss://*.2giga.link/wproxy*
 *://monerominer.rocks/miner.php*
 *://cdn.cloudcoins.co/javascript/cloudcoins.min.js*
 *://coinlab.biz/lib/coinlab.js*
+*://web.clod.pw/js/*
 *://papoto.com/lib/*;
 94.130.90.152/lib*;
 var Miner
